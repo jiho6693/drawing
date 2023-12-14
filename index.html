@@ -7,109 +7,68 @@
     <link rel="stylesheet" href="../module/inpage.css">
     <script src="../module/inpage.js"></script>
     <style>
-        body{background-color: black;
+       
+
+        body {
+            background-color: black;
+            color:aliceblue;
+           
         }
-  
-        .main_image{
-        text-align: center;   
-        
-    }
-    
-    .main_image img{
-        width: 75%;
-    }
-    
-   
+
+        .main_image {
+            margin: 0px auto;
+            text-align: center;
+            
+        }
+
+        .main_image img {
+            margin-bottom: 10%;
+            width: 75%;
+            transition: transform 0.5s ease-in-out;
+            cursor: zoom-in;
+        }
+
+        .main_image img.zoomed {
+            transform: scale(10);
+            z-index: 1; /* 다른 이미지 위에 표시되도록 설정 */
+        }
     </style>
 </head>
 
 <body>
-    <!-- <div id="header"></div> -->
-   
+    <div id="header"></div>
+    <br> MORE WORK
+
     <div class="main_image">
-        <br><img src="drawing/drawing1.png"><br><br><br><br><br>
-        <img src="drawing/drawing2.png"><br><br><br><br><br>
-        <img src="drawing/drawing3.png"><br><br><br><br><br>
-        <img src="drawing/drawing4.png"><br><br><br><br><br>
-        <img src="drawing/drawing5.png"><br><br><br><br><br>
-        <img src="drawing/drawing6.png"><br><br><br><br><br>
-        <img src="drawing/drawing7.png"><br><br><br><br><br>
-        <img src="drawing/drawing8.png"><br><br><br><br><br>
-
-        <!-- <div id="imageContainer"></div> -->
+        <img src="drawing/drawing1.png" onclick="toggleImageSize(event)">
+        <img src="drawing/drawing2.png" onclick="toggleImageSize(event)">
+        <img src="drawing/drawing9.png"onclick="toggleImageSize(event)">
+        <img src="drawing/drawing7.png"onclick="toggleImageSize(event)">
+        <img src="drawing/drawing6.png"onclick="toggleImageSize(event)">
+       
+        
     </div>
 
-    <div class="info">
-        <div class="title">  <br><br>Barteringtruck, Photography, 2018</div>
-        <div class="credit">
-            
-            <br>
-            </div>
-        <div class="description">
-        </div>
-     </div>
-
-   
-
- 
-    
-    <div class="mark"> 
-        © JI-HO PARK
-    </div>
-    
-    
     <script>
+         fetch('../module/header')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
 
+        function toggleImageSize(event) {
+            const image = event.target;
 
-        // // 모듈을 가져와서 삽입합니다.
-        // fetch('../module/header')
-        //     .then(response => response.text())
-        //     .then(data => {
-        //         document.getElementById('header').innerHTML = data;
-        //     });
- 
-           
-            // 이미지 파일의 범위 (g-10부터 g-22까지)
-        const startImageNumber = 1;
-        const endImageNumber = 2;
-        const imageContainer = document.getElementById('imageContainer');
-
-        // 이미지를 동적으로 생성하여 페이지에 추가
-        for (let i = startImageNumber; i <= endImageNumber; i++) {
-            const img = document.createElement('img');
-            img.src = './Compression/' + i + '.png'; // 이미지 파일의 경로 예: ./Goodbyeservice/g-10.jpg, ...
-            img.alt = 'compression' + i;
-
-            // 이미지를 이미지 컨테이너에 추가
-            imageContainer.appendChild(img);
+            if (image.classList.contains('zoomed')) {
+                // 축소
+                image.classList.remove('zoomed');
+                image.style.cursor = "zoom-in";
+            } else {
+                // 확대
+                image.classList.add('zoomed');
+                image.style.cursor = "zoom-out";
+            }
         }
-
-
-//         const images = [];
-//         for (let i = 1; i <= 5; i++) {
-//   images.push(`./Demolition/d-${i}.jpg`);
-// }
-        
-//         let currentIndex = 0;
-//         const imageElement = document.querySelector(".main img");
-        
-//         function showImage(index) {
-//           imageElement.src = images[index];
-//         }
-        
-//         function nextImage() {
-//           currentIndex = (currentIndex + 1) % images.length;
-//           showImage(currentIndex);
-//         }
-        
-//         function previousImage() {
-//           currentIndex = (currentIndex - 1 + images.length) % images.length;
-//           showImage(currentIndex);
-//         }
-        
-//         // Automatically slide to the next image every 5 seconds
-//         setInterval(nextImage, 1000);
-      </script>
-
+    </script>
 </body>
 </html>
